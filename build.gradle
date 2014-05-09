@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
-def server = 'http://localhost:8081/artifactory'
+ext.server = 'http://localhost:8081/artifactory'
 
 repositories.maven { url "$server/repo" }
 
@@ -34,11 +34,15 @@ publishing {
         password 'password'
       }
 
-      def isSnapshot = project.version.endsWith('-SNAPSHOT') 
-      def repositoryType = isSnapshot ? 'snapshot' : 'release'
-      def repository = "libs-$repositoryType-local"
-      url "$server/$repository"
+      url chooseRepositoryFor(version)
     }
   }
+}
+
+def chooseRepositoryFor(version) {
+  def isSnapshot = version.endsWith('-SNAPSHOT')
+  def repositoryType = isSnapshot ? 'snapshot' : 'release'
+  def repository = "libs-$repositoryType-local"
+  return "$server/$repository"
 }
 
