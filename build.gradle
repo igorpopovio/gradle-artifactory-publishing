@@ -19,6 +19,13 @@ publishing {
     mavenJava(MavenPublication) {
       from components.java
     }
+
+    myBuildDotGradleScript(MavenPublication) {
+      groupId 'io.igorpopov'
+      artifactId 'build-script'
+      version '3.14-SNAPSHOT'
+      artifact file('build.gradle')
+    }
   }
   repositories {
     maven {
