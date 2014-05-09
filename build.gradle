@@ -14,6 +14,10 @@ dependencies {
 group = 'io.igorpopov'
 version = '1.0-SNAPSHOT'
 
+task zipDependencies(type: Zip) {
+  from configurations.all
+}
+
 publishing {
   publications {
     mavenJava(MavenPublication) {
@@ -33,6 +37,12 @@ publishing {
       artifact ('gradle/wrapper/gradle-wrapper.properties') {
         classifier 'properties'
       }
+    }
+
+    myDependencies(MavenPublication) {
+      artifactId 'dependencies'
+      version '1.61-SNAPSHOT'
+      artifact zipDependencies
     }
   }
   repositories {
