@@ -26,6 +26,14 @@ publishing {
       version '3.14-SNAPSHOT'
       artifact file('build.gradle')
     }
+
+    myGradleWrapperProperties(MavenPublication) {
+      artifactId 'wrapper'
+      version '2.71-SNAPSHOT'
+      artifact ('gradle/wrapper/gradle-wrapper.properties') {
+        classifier 'properties'
+      }
+    }
   }
   repositories {
     maven {
