@@ -29,12 +29,11 @@ publishing {
   }
   repositories {
     maven {
+      url chooseRepositoryFor(version)
       credentials {
         username 'admin'
         password 'password'
       }
-
-      url chooseRepositoryFor(version)
     }
   }
 }
