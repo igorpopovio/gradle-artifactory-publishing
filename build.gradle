@@ -34,10 +34,10 @@ publishing {
         password 'password'
       }
 
-      if (project.version.endsWith('-SNAPSHOT'))
-        url "http://localhost:8081/artifactory/libs-snapshot-local"
-      else
-        url "http://localhost:8081/artifactory/libs-release-local"
+      def isSnapshot = project.version.endsWith('-SNAPSHOT') 
+      def repositoryType = isSnapshot ? 'snapshot' : 'release'
+      def repository = "libs-$repositoryType-local"
+      url "$server/$repository"
     }
   }
 }
